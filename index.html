@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eren Pekdemir — Portfolio</title>
+  <meta name="description" content="Eren Pekdemir — Signal Processing & Software Engineering student, game developer." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Phosphor Icons (lightweight icon set, CDN) -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner container">
+      <a class="logo" href="#hero">EP</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="ph ph-sun" id="themeIcon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="container hero-inner">
+      <!--
+        PROFILE PHOTO
+        Place your photo at: assets/profile.jpg (recommended 400×400 px, square crop)
+        Supported formats: .jpg, .png, .webp
+      -->
+      <img
+        class="hero-avatar"
+        src="assets/profile.jpg"
+        alt="Eren Pekdemir"
+        onerror="this.style.display='none'; document.getElementById('avatar-placeholder').style.display='flex';"
+      />
+      <div class="avatar-placeholder" id="avatar-placeholder" aria-hidden="true">EP</div>
+
+      <div class="hero-text">
+        <p class="hero-greeting">Hi, I'm</p>
+        <h1 class="hero-name">Eren <span class="accent">Pekdemir</span></h1>
+        <p class="hero-tagline">Signal Processing &amp; Software Engineering student · Game Developer</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-outline" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+    <a class="scroll-hint" href="#about" aria-label="Scroll down">
+      <i class="ph ph-arrow-down"></i>
+    </a>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm an undergraduate student studying <strong>Signal Processing and Software Engineering</strong>,
+            with a passion for building things that sit at the intersection of low-level systems and
+            immersive experiences.
+          </p>
+          <p>
+            My main creative outlet is <strong>game development</strong> — I work with Unreal Engine 5 and
+            explore mechanics-driven design. On the engineering side I enjoy DSP, real-time systems, and
+            anything that requires squeezing performance out of hardware.
+          </p>
+          <p>
+            When I'm not coding I'm usually diving into new tools, tweaking shaders, or thinking about
+            how to make interactive worlds feel more alive.
+          </p>
+        </div>
+
+        <!--
+          DEMO VIDEO (optional)
+          Place your gameplay/project demo at: assets/psi-demo.mp4
+          Recommended: 1280×720 or 1920×1080, H.264, under 30 MB for fast load.
+          A poster frame (first frame screenshot) can go at: assets/psi-demo-poster.jpg
+        -->
+        <div class="about-media">
+          <video
+            class="demo-video"
+            src="assets/psi-demo.mp4"
+            poster="assets/psi-demo-poster.jpg"
+            controls
+            muted
+            loop
+            playsinline
+            onerror="this.parentElement.innerHTML='<div class=\'video-placeholder\'><i class=\'ph ph-play-circle\'></i><p>PSI Demo — drop <code>assets/psi-demo.mp4</code> here</p></div>'"
+          ></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section class="section section-alt" id="projects">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <p class="section-sub">Pulled live from GitHub — <a href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">@eren-pekdemir</a></p>
+
+      <!-- Pinned / featured projects (hardcoded so they always appear first) -->
+      <div class="featured-projects" id="featuredProjects">
+        <!--
+          FEATURED PROJECT CARD — PSI / UE5
+          Edit the fields below to match your actual repo names and descriptions.
+          The "featured" badge and ordering are controlled here, not by the API.
+        -->
+        <article class="project-card featured" data-repo="PSI">
+          <div class="card-header">
+            <span class="lang-dot" style="--lang-color: #c0392b;"></span>
+            <span class="card-lang">C++ / Blueprints</span>
+            <span class="badge">Featured</span>
+          </div>
+          <h3 class="card-title">
+            <a href="https://github.com/eren-pekdemir/PSI" target="_blank" rel="noopener">PSI</a>
+          </h3>
+          <p class="card-desc">
+            A game project built with Unreal Engine 5 — exploring physics-driven mechanics and procedural systems.
+            <!--
+              Update this description to match your repo's actual README or description.
+            -->
+          </p>
+          <div class="card-footer">
+            <a class="card-link" href="https://github.com/eren-pekdemir/PSI" target="_blank" rel="noopener">
+              <i class="ph ph-github-logo"></i> View on GitHub
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Dynamically loaded repos from GitHub API -->
+      <div class="projects-grid" id="projectsGrid">
+        <div class="loading-spinner" id="projectsLoading">
+          <div class="spinner"></div>
+          <p>Loading repositories…</p>
+        </div>
+      </div>
+
+      <div class="projects-error hidden" id="projectsError">
+        <i class="ph ph-warning"></i>
+        <p>Could not load repositories. <a href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">View on GitHub</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <h3 class="skill-group-title"><i class="ph ph-game-controller"></i> Game Development</h3>
+          <ul class="skill-list">
+            <li>Unreal Engine 5 (Blueprints &amp; C++)</li>
+            <li>Game Mechanics Design</li>
+            <li>Shader / Material Development</li>
+            <li>Procedural Content Generation</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group-title"><i class="ph ph-wave-sine"></i> Signal Processing</h3>
+          <ul class="skill-list">
+            <li>DSP Fundamentals (FIR/IIR, FFT)</li>
+            <li>MATLAB / Python (NumPy, SciPy)</li>
+            <li>Real-time Audio / Signal Systems</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group-title"><i class="ph ph-code"></i> Software Engineering</h3>
+          <ul class="skill-list">
+            <li>C / C++ / Python</li>
+            <li>Git &amp; GitHub</li>
+            <li>Data Structures &amp; Algorithms</li>
+            <li>Linux &amp; Command Line</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group-title"><i class="ph ph-wrench"></i> Tools &amp; Platforms</h3>
+          <ul class="skill-list">
+            <li>VS Code / Rider</li>
+            <li>GitHub Actions (CI basics)</li>
+            <li>Blender (basic 3D)</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section section-alt" id="contact">
+    <div class="container contact-inner">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="section-sub">
+        Whether it's a project idea, a collaboration, or just a chat — my inbox is open.
+      </p>
+
+      <div class="contact-links">
+        <!--
+          Update the href values below with your real URLs / email.
+          eren.pekdemir.15@gmail.com is used from your profile.
+        -->
+        <a class="contact-card" href="mailto:eren.pekdemir.15@gmail.com">
+          <i class="ph ph-envelope-simple"></i>
+          <span>eren.pekdemir.15@gmail.com</span>
+        </a>
+        <a class="contact-card" href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">
+          <i class="ph ph-github-logo"></i>
+          <span>github.com/eren-pekdemir</span>
+        </a>
+        <!--
+          Add your LinkedIn / Twitter / Discord here if you want.
+          Example:
+          <a class="contact-card" href="https://linkedin.com/in/YOURUSERNAME" target="_blank" rel="noopener">
+            <i class="ph ph-linkedin-logo"></i>
+            <span>LinkedIn</span>
+          </a>
+        -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Eren Pekdemir · Built with vanilla HTML/CSS/JS · Hosted on GitHub Pages</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
