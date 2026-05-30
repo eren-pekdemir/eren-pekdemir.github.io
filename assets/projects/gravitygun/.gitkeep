@@ -1,0 +1,3 @@
+Bu klasore "gravitygun" projesinin foto/videolarini koy.
+Ornek: demo.mp4, 1.jpg, 2.jpg
+Sonra project-data.js icinde video/gallery yollarini yaz.

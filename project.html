@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project · Eren Pekdemir</title>
+  <meta name="description" content="Project detail — Eren Pekdemir" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="nav-name" href="index.html">Eren Pekdemir</a>
+      <nav class="nav-links">
+        <a href="index.html#work"><span class="num">←</span> All projects</a>
+      </nav>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">
+        <span id="themeLabel">dark</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== PROJECT ===== -->
+  <main class="proj">
+    <div class="wrap" id="projRoot">
+      <!-- filled by the script below -->
+      <div class="loading"><span class="bar"></span> loading project…</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span>Made by hand, no templates.</span>
+      <span>© 2026 Eren Pekdemir</span>
+    </div>
+  </footer>
+
+  <script src="project-data.js"></script>
+  <script>
+    /* ---- theme (same behaviour as the home page) ---- */
+    const root = document.documentElement;
+    const tBtn = document.getElementById('themeBtn');
+    const tLbl = document.getElementById('themeLabel');
+    function setTheme(t){ root.setAttribute('data-theme', t); tLbl.textContent = t; localStorage.setItem('theme', t); }
+    setTheme(localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+    tBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    /* ---- nav scroll border ---- */
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 24), { passive: true });
+
+    /* ---- helpers ---- */
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+    const params = new URLSearchParams(location.search);
+    const id  = (params.get('id') || '').trim();
+    const key = id.toLowerCase();
+    const data = (typeof PROJECTS !== 'undefined' && PROJECTS[key]) ? PROJECTS[key] : null;
+
+    function render(d) {
+      document.title = `${d.title} · Eren Pekdemir`;
+
+      const tags  = (d.tags && d.tags.length)
+        ? `<p class="proj-eyebrow">${d.tags.map(esc).join(' · ')}</p>` : '';
+
+      const stars = d._stars ? `<span>★ ${d._stars}</span>` : '';
+      const lang  = d._lang  ? `<span>${esc(d._lang)}</span>` : '';
+
+      const video = d.video
+        ? `<div class="proj-video">
+             <video src="${esc(d.video)}" controls playsinline
+               onerror="this.parentElement.innerHTML='<div class=&quot;embed-missing&quot;><span>Video goes here</span><code>${esc(d.video)}</code></div>';"></video>
+           </div>` : '';
+
+      const gallery = (d.gallery && d.gallery.length)
+        ? `<div class="proj-gallery">` +
+            d.gallery.map(src =>
+              `<img src="${esc(src)}" alt="${esc(d.title)} screenshot" loading="lazy"
+                 onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'embed-missing',innerHTML:'<span>Image goes here</span><code>${esc(src)}</code>'}));">`
+            ).join('') +
+          `</div>` : '';
+
+      const body = (d.body && d.body.length)
+        ? `<div class="proj-body">${d.body.map(p => `<p>${esc(p)}</p>`).join('')}</div>`
+        : '';
+
+      document.getElementById('projRoot').innerHTML = `
+        <a class="proj-back" href="index.html#work">← Back to projects</a>
+        ${tags}
+        <h1 class="proj-title">${esc(d.title)}</h1>
+        ${d.blurb ? `<p class="proj-blurb">${esc(d.blurb)}</p>` : ''}
+        <div class="proj-meta">
+          ${lang}${stars}
+          <a class="proj-gh" href="${esc(d.repo)}" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+        ${video}
+        ${gallery}
+        ${body}
+      `;
+    }
+
+    function renderMissing() {
+      document.getElementById('projRoot').innerHTML = `
+        <a class="proj-back" href="index.html#work">← Back to projects</a>
+        <h1 class="proj-title">${esc(id || 'Project not found')}</h1>
+        <p class="proj-blurb">No details for this project yet.</p>
+        ${id ? `<div class="proj-meta">
+          <a class="proj-gh" href="https://github.com/${GITHUB_USER}/${encodeURIComponent(id)}" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>` : ''}
+      `;
+    }
+
+    /* ---- build the page; enrich with live GitHub info when possible ---- */
+    (async function init() {
+      const base = data ? { ...data } : null;
+      const repoName = (base && base.name) || id;
+
+      if (!repoName) { renderMissing(); return; }
+
+      // best-effort: pull language / stars / fallback description from GitHub
+      try {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${repoName}`,
+          { headers: { Accept: 'application/vnd.github+json' } });
+        if (res.ok) {
+          const r = await res.json();
+          if (base) {
+            base._lang  = r.language || null;
+            base._stars = r.stargazers_count || 0;
+            if (!base.body || !base.body.length) base.body = [r.description || ''];
+          } else {
+            // no authored entry — render straight from GitHub
+            return render({
+              name: r.name, title: r.name, blurb: r.description || '',
+              tags: r.language ? [r.language] : [], body: [],
+              video: '', gallery: [],
+              repo: r.html_url, _lang: r.language, _stars: r.stargazers_count
+            });
+          }
+        }
+      } catch (_) { /* offline / rate-limited — fall back to static data */ }
+
+      if (base) render(base); else renderMissing();
+    })();
+  </script>
+</body>
+</html>

@@ -437,3 +437,113 @@ code { font-family: var(--mono); font-size: .82em; }
   .skills { grid-template-columns: 1fr; }
   .hero-links { gap: 18px; }
 }
+
+/* ===================================================
+   CLICKABLE REPO CARD (home)
+   =================================================== */
+.repo[data-id] { cursor: pointer; }
+.repo-name a:hover { color: var(--accent); }
+.repo-foot .repo-gh { margin-left: auto; color: var(--accent); }
+.repo-foot .repo-gh:hover { color: var(--accent-ink); }
+
+/* ===================================================
+   PROJECT DETAIL PAGE
+   =================================================== */
+.proj { padding: calc(var(--nav-h) + 64px) 0 110px; }
+
+.proj-back {
+  font-family: var(--mono);
+  font-size: .84rem;
+  color: var(--muted);
+  display: inline-block;
+  margin-bottom: 34px;
+  transition: color .2s ease;
+}
+.proj-back:hover { color: var(--accent); }
+
+.proj-eyebrow {
+  font-family: var(--mono);
+  font-size: .8rem;
+  letter-spacing: .04em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.proj-title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -.02em;
+  margin-bottom: 18px;
+}
+
+.proj-blurb {
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  color: var(--muted);
+  max-width: 60ch;
+  margin-bottom: 26px;
+}
+
+.proj-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: .82rem;
+  color: var(--muted);
+  padding-bottom: 30px;
+  margin-bottom: 44px;
+  border-bottom: 1px solid var(--border);
+}
+.proj-gh { color: var(--accent); }
+.proj-gh:hover { color: var(--accent-ink); }
+
+.proj-video video {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #000;
+  margin-bottom: 44px;
+}
+
+.proj-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 48px;
+}
+.proj-gallery img {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.proj-body p {
+  color: var(--muted);
+  max-width: 64ch;
+  font-size: 1.04rem;
+  margin-bottom: 18px;
+}
+.proj-body em { color: var(--text); font-style: italic; }
+
+/* placeholder shown when a referenced video/image file is missing */
+.embed-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  aspect-ratio: 16 / 9;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 44px;
+}
+.proj-gallery .embed-missing { margin-bottom: 0; }
+.embed-missing code { color: var(--accent); }

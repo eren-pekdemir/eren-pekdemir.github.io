@@ -8,7 +8,7 @@ const EXCLUDE_REPOS = ['psi', 'eren-pekdemir.github.io'];
 
 // Force these repos into the "Game development" group (lowercase names).
 // Add any game project here whose name/topics don't obviously say "game".
-const GAME_DEV_REPOS = [];
+const GAME_DEV_REPOS = ['inventorysystem', 'locomationsystem'];
 
 // A repo is treated as game-dev if it's in GAME_DEV_REPOS above, OR its
 // name / description / topics mention any of these, OR it's a C# project.
@@ -62,17 +62,24 @@ function isGameDev(r) {
 function repoEl(r) {
   const el = document.createElement('article');
   el.className = 'repo';
-  const lang = r.language || 'Text';
+  el.dataset.id = r.name;
+  const lang    = r.language || 'Text';
+  const detail  = `project.html?id=${encodeURIComponent(r.name)}`;
   el.innerHTML = `
     <div class="repo-top">
-      <span class="repo-name"><a href="${r.html_url}" target="_blank" rel="noopener">${esc(r.name)}</a></span>
+      <span class="repo-name"><a href="${detail}">${esc(r.name)}</a></span>
       ${r.stargazers_count ? `<span class="repo-stars">★ ${r.stargazers_count}</span>` : ''}
     </div>
     <p class="repo-desc">${esc(r.description || 'No description yet.')}</p>
     <div class="repo-foot">
       <span class="repo-lang"><span class="sw" style="--c:${langColor(lang)}"></span>${esc(lang)}</span>
-      <a href="${r.html_url}" target="_blank" rel="noopener">open →</a>
+      <a class="repo-gh" href="${r.html_url}" target="_blank" rel="noopener">GitHub ↗</a>
     </div>`;
+  // whole card is clickable -> detail page (unless a real link was clicked)
+  el.addEventListener('click', e => {
+    if (e.target.closest('a')) return;
+    location.href = detail;
+  });
   return el;
 }
 
