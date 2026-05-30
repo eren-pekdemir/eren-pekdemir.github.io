@@ -3,248 +3,235 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eren Pekdemir — Portfolio</title>
-  <meta name="description" content="Eren Pekdemir — Signal Processing & Software Engineering student, game developer." />
+  <title>Eren Pekdemir</title>
+  <meta name="description" content="Eren Pekdemir — signal processing & software engineering student who'd rather be making games." />
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-  <!-- Phosphor Icons (lightweight icon set, CDN) -->
-  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" defer></script>
+  <!-- Fraunces (display serif) + Inter (body) + JetBrains Mono (labels/code) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <header class="navbar" id="navbar">
-    <div class="nav-inner container">
-      <a class="logo" href="#hero">EP</a>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="nav-name" href="#top">Eren Pekdemir</a>
+      <nav class="nav-links">
+        <a href="#about"><span class="num">01</span> About</a>
+        <a href="#work"><span class="num">02</span> Work</a>
+        <a href="#skills"><span class="num">03</span> Skills</a>
+        <a href="#contact"><span class="num">04</span> Contact</a>
       </nav>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="ph ph-sun" id="themeIcon"></i>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">
+        <span id="themeLabel">dark</span>
       </button>
     </div>
   </header>
 
   <!-- ===== HERO ===== -->
-  <section class="hero" id="hero">
-    <div class="container hero-inner">
-      <!--
-        PROFILE PHOTO
-        Place your photo at: assets/profile.jpg (recommended 400×400 px, square crop)
-        Supported formats: .jpg, .png, .webp
-      -->
-      <img
-        class="hero-avatar"
-        src="assets/profile.jpg"
-        alt="Eren Pekdemir"
-        onerror="this.style.display='none'; document.getElementById('avatar-placeholder').style.display='flex';"
-      />
-      <div class="avatar-placeholder" id="avatar-placeholder" aria-hidden="true">EP</div>
-
-      <div class="hero-text">
-        <p class="hero-greeting">Hi, I'm</p>
-        <h1 class="hero-name">Eren <span class="accent">Pekdemir</span></h1>
-        <p class="hero-tagline">Signal Processing &amp; Software Engineering student · Game Developer</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#projects">View Projects</a>
-          <a class="btn btn-outline" href="#contact">Get in Touch</a>
-        </div>
+  <section class="hero" id="top">
+    <div class="wrap">
+      <p class="hero-eyebrow">Istanbul · signal processing &amp; software engineering</p>
+      <h1 class="hero-title">
+        I make <em>games</em> — and I'm restlessly curious about the systems humming underneath them.
+      </h1>
+      <p class="hero-lede">
+        Hey, I'm Eren. By day I study signals and software; the rest of the time I'm in
+        Unreal Engine 5, arguing with myself about how a jump should <em>feel</em>.
+      </p>
+      <div class="hero-meta">
+        <span class="dot"></span>
+        Currently building <strong>PSI</strong> in UE5 &amp; tinkering with real-time DSP.
+      </div>
+      <div class="hero-links">
+        <a class="link-arrow" href="#work">See what I'm building <span aria-hidden="true">↓</span></a>
+        <a class="link-arrow" href="#contact">Say hello <span aria-hidden="true">→</span></a>
       </div>
     </div>
-    <a class="scroll-hint" href="#about" aria-label="Scroll down">
-      <i class="ph ph-arrow-down"></i>
-    </a>
   </section>
 
   <!-- ===== ABOUT ===== -->
-  <section class="section" id="about">
-    <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-grid">
+  <section class="block" id="about">
+    <div class="wrap">
+      <header class="block-head">
+        <span class="block-num">01</span>
+        <h2 class="block-title">A bit about me</h2>
+      </header>
+
+      <div class="about">
         <div class="about-text">
           <p>
-            I'm an undergraduate student studying <strong>Signal Processing and Software Engineering</strong>,
-            with a passion for building things that sit at the intersection of low-level systems and
-            immersive experiences.
+            I'm an undergrad splitting my brain between <strong>signal processing</strong> and
+            <strong>software engineering</strong> — the kind of person who enjoys both the math of
+            an FFT and the dumb thrill of finally fixing a physics bug at 2 a.m.
           </p>
           <p>
-            My main creative outlet is <strong>game development</strong> — I work with Unreal Engine 5 and
-            explore mechanics-driven design. On the engineering side I enjoy DSP, real-time systems, and
-            anything that requires squeezing performance out of hardware.
+            Games are where it all clicks for me. I like working close to the metal: how a
+            mechanic reads to the player, why a frame stutters, what makes a world feel
+            <em>lived-in</em> instead of just rendered. UE5 is my main playground.
           </p>
           <p>
-            When I'm not coding I'm usually diving into new tools, tweaking shaders, or thinking about
-            how to make interactive worlds feel more alive.
+            Outside of that you'll catch me breaking apart shaders, sketching procedural
+            systems, or reading way too much about how old games pulled off impossible things
+            on tiny hardware.
           </p>
         </div>
 
         <!--
-          DEMO VIDEO (optional)
-          Place your gameplay/project demo at: assets/psi-demo.mp4
-          Recommended: 1280×720 or 1920×1080, H.264, under 30 MB for fast load.
-          A poster frame (first frame screenshot) can go at: assets/psi-demo-poster.jpg
+          PROFILE PHOTO
+          Drop your photo at: assets/profile.jpg  (square works best, ~600×600 px)
+          If it's missing, a placeholder shows automatically.
         -->
-        <div class="about-media">
-          <video
-            class="demo-video"
-            src="assets/psi-demo.mp4"
-            poster="assets/psi-demo-poster.jpg"
-            controls
-            muted
-            loop
-            playsinline
-            onerror="this.parentElement.innerHTML='<div class=\'video-placeholder\'><i class=\'ph ph-play-circle\'></i><p>PSI Demo — drop <code>assets/psi-demo.mp4</code> here</p></div>'"
-          ></video>
-        </div>
+        <figure class="about-photo">
+          <img
+            src="assets/profile.jpg"
+            alt="Eren Pekdemir"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="photo-placeholder" aria-hidden="true">
+            <span>your photo →</span>
+            <code>assets/profile.jpg</code>
+          </div>
+          <figcaption>That's me. Probably thinking about a game.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- ===== PROJECTS ===== -->
-  <section class="section section-alt" id="projects">
-    <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <p class="section-sub">Pulled live from GitHub — <a href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">@eren-pekdemir</a></p>
+  <!-- ===== WORK ===== -->
+  <section class="block block-alt" id="work">
+    <div class="wrap">
+      <header class="block-head">
+        <span class="block-num">02</span>
+        <h2 class="block-title">Things I've made</h2>
+      </header>
+      <p class="block-intro">
+        The headliner first, then everything else straight from
+        <a href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">my GitHub</a>.
+      </p>
 
-      <!-- Pinned / featured projects (hardcoded so they always appear first) -->
-      <div class="featured-projects" id="featuredProjects">
+      <!-- FEATURED PROJECT — PSI / UE5 (with demo video) -->
+      <article class="featured" data-repo="PSI">
         <!--
-          FEATURED PROJECT CARD — PSI / UE5
-          Edit the fields below to match your actual repo names and descriptions.
-          The "featured" badge and ordering are controlled here, not by the API.
+          DEMO VIDEO
+          Drop your gameplay clip at: assets/psi-demo.mp4  (H.264, ideally under ~30 MB)
+          Optional poster frame: assets/psi-demo-poster.jpg
         -->
-        <article class="project-card featured" data-repo="PSI">
-          <div class="card-header">
-            <span class="lang-dot" style="--lang-color: #c0392b;"></span>
-            <span class="card-lang">C++ / Blueprints</span>
-            <span class="badge">Featured</span>
-          </div>
-          <h3 class="card-title">
-            <a href="https://github.com/eren-pekdemir/PSI" target="_blank" rel="noopener">PSI</a>
-          </h3>
-          <p class="card-desc">
-            A game project built with Unreal Engine 5 — exploring physics-driven mechanics and procedural systems.
-            <!--
-              Update this description to match your repo's actual README or description.
-            -->
+        <div class="featured-media">
+          <video
+            src="assets/psi-demo.mp4"
+            poster="assets/psi-demo-poster.jpg"
+            controls muted loop playsinline
+            onerror="this.parentElement.innerHTML='<div class=&quot;media-placeholder&quot;><span>PSI demo goes here</span><code>assets/psi-demo.mp4</code></div>';"
+          ></video>
+        </div>
+        <div class="featured-body">
+          <span class="featured-tag">Featured · Unreal Engine 5</span>
+          <h3 class="featured-title">PSI</h3>
+          <p class="featured-desc">
+            <!-- Swap this for your real pitch once the repo's further along. -->
+            My main project right now — a UE5 game built around physics-driven mechanics and
+            procedural systems. It's where most of my experiments end up: movement that feels
+            right, worlds that build themselves, and a lot of trial and error in between.
           </p>
-          <div class="card-footer">
-            <a class="card-link" href="https://github.com/eren-pekdemir/PSI" target="_blank" rel="noopener">
-              <i class="ph ph-github-logo"></i> View on GitHub
-            </a>
+          <div class="featured-meta">
+            <span><span class="sw" style="--c:#f34b7d"></span> C++ &amp; Blueprints</span>
+            <a class="ghlink" href="https://github.com/eren-pekdemir/PSI" target="_blank" rel="noopener">View repository →</a>
           </div>
-        </article>
-      </div>
+        </div>
+      </article>
 
-      <!-- Dynamically loaded repos from GitHub API -->
-      <div class="projects-grid" id="projectsGrid">
-        <div class="loading-spinner" id="projectsLoading">
-          <div class="spinner"></div>
-          <p>Loading repositories…</p>
+      <!-- Other repos pulled live from GitHub -->
+      <div class="repos" id="projectsGrid">
+        <div class="loading" id="projectsLoading">
+          <span class="bar"></span> fetching repositories…
         </div>
       </div>
-
-      <div class="projects-error hidden" id="projectsError">
-        <i class="ph ph-warning"></i>
-        <p>Could not load repositories. <a href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">View on GitHub</a></p>
+      <div class="repos-error hidden" id="projectsError">
+        Couldn't reach GitHub right now —
+        <a href="https://github.com/eren-pekdemir?tab=repositories" target="_blank" rel="noopener">browse the repos directly</a>.
       </div>
     </div>
   </section>
 
   <!-- ===== SKILLS ===== -->
-  <section class="section" id="skills">
-    <div class="container">
-      <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
+  <section class="block" id="skills">
+    <div class="wrap">
+      <header class="block-head">
+        <span class="block-num">03</span>
+        <h2 class="block-title">What I work with</h2>
+      </header>
 
-        <div class="skill-group">
-          <h3 class="skill-group-title"><i class="ph ph-game-controller"></i> Game Development</h3>
-          <ul class="skill-list">
-            <li>Unreal Engine 5 (Blueprints &amp; C++)</li>
-            <li>Game Mechanics Design</li>
-            <li>Shader / Material Development</li>
-            <li>Procedural Content Generation</li>
+      <div class="skills">
+        <div class="skill-col">
+          <h4>Game dev</h4>
+          <ul>
+            <li>Unreal Engine 5 — Blueprints &amp; C++</li>
+            <li>Mechanics &amp; feel</li>
+            <li>Shaders / materials</li>
+            <li>Procedural generation</li>
           </ul>
         </div>
-
-        <div class="skill-group">
-          <h3 class="skill-group-title"><i class="ph ph-wave-sine"></i> Signal Processing</h3>
-          <ul class="skill-list">
-            <li>DSP Fundamentals (FIR/IIR, FFT)</li>
-            <li>MATLAB / Python (NumPy, SciPy)</li>
-            <li>Real-time Audio / Signal Systems</li>
+        <div class="skill-col">
+          <h4>Signal processing</h4>
+          <ul>
+            <li>DSP — FIR/IIR, FFT</li>
+            <li>MATLAB</li>
+            <li>Python — NumPy, SciPy</li>
+            <li>Real-time audio</li>
           </ul>
         </div>
-
-        <div class="skill-group">
-          <h3 class="skill-group-title"><i class="ph ph-code"></i> Software Engineering</h3>
-          <ul class="skill-list">
+        <div class="skill-col">
+          <h4>Engineering</h4>
+          <ul>
             <li>C / C++ / Python</li>
             <li>Git &amp; GitHub</li>
-            <li>Data Structures &amp; Algorithms</li>
-            <li>Linux &amp; Command Line</li>
+            <li>Data structures &amp; algorithms</li>
+            <li>Linux &amp; the terminal</li>
           </ul>
         </div>
-
-        <div class="skill-group">
-          <h3 class="skill-group-title"><i class="ph ph-wrench"></i> Tools &amp; Platforms</h3>
-          <ul class="skill-list">
-            <li>VS Code / Rider</li>
-            <li>GitHub Actions (CI basics)</li>
-            <li>Blender (basic 3D)</li>
+        <div class="skill-col">
+          <h4>Tools</h4>
+          <ul>
+            <li>VS Code · Rider</li>
+            <li>Blender (the basics)</li>
+            <li>GitHub Actions</li>
           </ul>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- ===== CONTACT ===== -->
-  <section class="section section-alt" id="contact">
-    <div class="container contact-inner">
-      <h2 class="section-title">Get in Touch</h2>
-      <p class="section-sub">
-        Whether it's a project idea, a collaboration, or just a chat — my inbox is open.
+  <section class="block block-alt" id="contact">
+    <div class="wrap contact">
+      <header class="block-head">
+        <span class="block-num">04</span>
+        <h2 class="block-title">Let's talk</h2>
+      </header>
+      <p class="contact-lede">
+        Got a project, a half-formed idea, or just want to nerd out about games and DSP?
+        My inbox is genuinely open.
       </p>
-
-      <div class="contact-links">
+      <div class="contact-list">
+        <!-- Update these with your real links. -->
+        <a href="mailto:eren.pekdemir.15@gmail.com">eren.pekdemir.15@gmail.com</a>
+        <a href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">github.com/eren-pekdemir</a>
         <!--
-          Update the href values below with your real URLs / email.
-          eren.pekdemir.15@gmail.com is used from your profile.
-        -->
-        <a class="contact-card" href="mailto:eren.pekdemir.15@gmail.com">
-          <i class="ph ph-envelope-simple"></i>
-          <span>eren.pekdemir.15@gmail.com</span>
-        </a>
-        <a class="contact-card" href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">
-          <i class="ph ph-github-logo"></i>
-          <span>github.com/eren-pekdemir</span>
-        </a>
-        <!--
-          Add your LinkedIn / Twitter / Discord here if you want.
-          Example:
-          <a class="contact-card" href="https://linkedin.com/in/YOURUSERNAME" target="_blank" rel="noopener">
-            <i class="ph ph-linkedin-logo"></i>
-            <span>LinkedIn</span>
-          </a>
+          Add more if you like, e.g.:
+          <a href="https://linkedin.com/in/USERNAME" target="_blank" rel="noopener">LinkedIn</a>
         -->
       </div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
-    <div class="container">
-      <p>© 2026 Eren Pekdemir · Built with vanilla HTML/CSS/JS · Hosted on GitHub Pages</p>
+    <div class="wrap">
+      <span>Made by hand, no templates.</span>
+      <span>© 2026 Eren Pekdemir</span>
     </div>
   </footer>
 
