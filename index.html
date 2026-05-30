@@ -34,17 +34,17 @@
   <!-- ===== HERO ===== -->
   <section class="hero" id="top">
     <div class="wrap">
-      <p class="hero-eyebrow">Istanbul · signal processing &amp; software engineering</p>
+      <p class="hero-eyebrow">Istanbul · game development &amp; software engineering</p>
       <h1 class="hero-title">
         I make <em>games</em> — and I'm restlessly curious about the systems humming underneath them.
       </h1>
       <p class="hero-lede">
-        Hey, I'm Eren. By day I study signals and software; the rest of the time I'm in
+        Hey, I'm Eren — a software engineering student who'd rather be in
         Unreal Engine 5, arguing with myself about how a jump should <em>feel</em>.
       </p>
       <div class="hero-meta">
         <span class="dot"></span>
-        Currently building <strong>PSI</strong> in UE5 &amp; tinkering with real-time DSP.
+        Currently deep in Unreal Engine 5 — building things, breaking them, repeating.
       </div>
       <div class="hero-links">
         <a class="link-arrow" href="#work">See what I'm building <span aria-hidden="true">↓</span></a>
@@ -64,9 +64,9 @@
       <div class="about">
         <div class="about-text">
           <p>
-            I'm an undergrad splitting my brain between <strong>signal processing</strong> and
-            <strong>software engineering</strong> — the kind of person who enjoys both the math of
-            an FFT and the dumb thrill of finally fixing a physics bug at 2 a.m.
+            I'm a <strong>software engineering</strong> student who spends most of his energy
+            thinking about games — the kind of person who enjoys both clean architecture and the
+            dumb thrill of finally fixing a physics bug at 2 a.m.
           </p>
           <p>
             Games are where it all clicks for me. I like working close to the metal: how a
@@ -109,50 +109,28 @@
         <h2 class="block-title">Things I've made</h2>
       </header>
       <p class="block-intro">
-        The headliner first, then everything else straight from
-        <a href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">my GitHub</a>.
+        Pulled straight from
+        <a href="https://github.com/eren-pekdemir" target="_blank" rel="noopener">my GitHub</a>,
+        grouped by what they are.
       </p>
 
-      <!-- FEATURED PROJECT — PSI / UE5 (with demo video) -->
-      <article class="featured" data-repo="PSI">
-        <!--
-          DEMO VIDEO
-          Drop your gameplay clip at: assets/psi-demo.mp4  (H.264, ideally under ~30 MB)
-          Optional poster frame: assets/psi-demo-poster.jpg
-        -->
-        <div class="featured-media">
-          <video
-            src="assets/psi-demo.mp4"
-            poster="assets/psi-demo-poster.jpg"
-            controls muted loop playsinline
-            onerror="this.parentElement.innerHTML='<div class=&quot;media-placeholder&quot;><span>PSI demo goes here</span><code>assets/psi-demo.mp4</code></div>';"
-          ></video>
-        </div>
-        <div class="featured-body">
-          <span class="featured-tag">Featured · Unreal Engine 5</span>
-          <h3 class="featured-title">PSI</h3>
-          <p class="featured-desc">
-            <!-- Swap this for your real pitch once the repo's further along. -->
-            My main project right now — a UE5 game built around physics-driven mechanics and
-            procedural systems. It's where most of my experiments end up: movement that feels
-            right, worlds that build themselves, and a lot of trial and error in between.
-          </p>
-          <div class="featured-meta">
-            <span><span class="sw" style="--c:#f34b7d"></span> C++ &amp; Blueprints</span>
-            <a class="ghlink" href="https://github.com/eren-pekdemir/PSI" target="_blank" rel="noopener">View repository →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Other repos pulled live from GitHub -->
-      <div class="repos" id="projectsGrid">
-        <div class="loading" id="projectsLoading">
-          <span class="bar"></span> fetching repositories…
-        </div>
-      </div>
-      <div class="repos-error hidden" id="projectsError">
+      <!-- loading / error states (shared) -->
+      <div class="loading" id="workLoading"><span class="bar"></span> fetching repositories…</div>
+      <div class="repos-error hidden" id="workError">
         Couldn't reach GitHub right now —
         <a href="https://github.com/eren-pekdemir?tab=repositories" target="_blank" rel="noopener">browse the repos directly</a>.
+      </div>
+
+      <!-- Game development repos (filled by script.js) -->
+      <div class="repo-group hidden" id="gameGroup">
+        <h3 class="group-title">Game development</h3>
+        <div class="repos" id="gameRepos"></div>
+      </div>
+
+      <!-- Everything else (filled by script.js) -->
+      <div class="repo-group hidden" id="otherGroup">
+        <h3 class="group-title">Other projects</h3>
+        <div class="repos" id="otherRepos"></div>
       </div>
     </div>
   </section>
@@ -173,15 +151,6 @@
             <li>Mechanics &amp; feel</li>
             <li>Shaders / materials</li>
             <li>Procedural generation</li>
-          </ul>
-        </div>
-        <div class="skill-col">
-          <h4>Signal processing</h4>
-          <ul>
-            <li>DSP — FIR/IIR, FFT</li>
-            <li>MATLAB</li>
-            <li>Python — NumPy, SciPy</li>
-            <li>Real-time audio</li>
           </ul>
         </div>
         <div class="skill-col">

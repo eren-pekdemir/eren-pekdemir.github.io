@@ -1,9 +1,18 @@
 /* ===================================================
    config
    =================================================== */
-const GITHUB_USER    = 'eren-pekdemir';
-const FEATURED_REPOS = ['psi', 'eren-pekdemir.github.io']; // skipped in the dynamic list
-const MAX_REPOS      = 6;
+const GITHUB_USER  = 'eren-pekdemir';
+
+// Repos to hide from the page entirely (lowercase names).
+const EXCLUDE_REPOS = ['psi', 'eren-pekdemir.github.io'];
+
+// Force these repos into the "Game development" group (lowercase names).
+// Add any game project here whose name/topics don't obviously say "game".
+const GAME_DEV_REPOS = [];
+
+// A repo is treated as game-dev if it's in GAME_DEV_REPOS above, OR its
+// name / description / topics mention any of these, OR it's a C# project.
+const GAME_KEYWORDS = ['game', 'gamedev', 'unreal', 'ue4', 'ue5', 'unity', 'godot', 'engine', 'shader', 'gameplay'];
 
 /* ===================================================
    theme toggle (remembers choice, respects system)
@@ -42,6 +51,14 @@ const LANG_COLORS = {
 const langColor = l => LANG_COLORS[l] || 'var(--muted)';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
 
+function isGameDev(r) {
+  if (GAME_DEV_REPOS.includes(r.name.toLowerCase())) return true;
+  const hay = (r.name + ' ' + (r.description || '') + ' ' + (r.topics || []).join(' ')).toLowerCase();
+  if (GAME_KEYWORDS.some(k => hay.includes(k))) return true;
+  if (r.language === 'C#') return true; // usually Unity / game work
+  return false;
+}
+
 function repoEl(r) {
   const el = document.createElement('article');
   el.className = 'repo';
@@ -59,10 +76,16 @@ function repoEl(r) {
   return el;
 }
 
+function fillGroup(groupId, gridId, repos) {
+  if (!repos.length) return;
+  const grid = document.getElementById(gridId);
+  repos.forEach(r => grid.appendChild(repoEl(r)));
+  document.getElementById(groupId).classList.remove('hidden');
+}
+
 async function loadRepos() {
-  const grid    = document.getElementById('projectsGrid');
-  const loading = document.getElementById('projectsLoading');
-  const errBox  = document.getElementById('projectsError');
+  const loading = document.getElementById('workLoading');
+  const errBox  = document.getElementById('workError');
   try {
     const res = await fetch(
       `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100`,
@@ -71,19 +94,25 @@ async function loadRepos() {
     if (!res.ok) throw new Error('GitHub ' + res.status);
 
     const repos = (await res.json())
-      .filter(r => !r.fork && !FEATURED_REPOS.includes(r.name.toLowerCase()))
+      .filter(r => !r.fork && !EXCLUDE_REPOS.includes(r.name.toLowerCase()))
       .sort((a, b) =>
         b.stargazers_count - a.stargazers_count ||
         new Date(b.updated_at) - new Date(a.updated_at)
-      )
-      .slice(0, MAX_REPOS);
+      );
+
+    const games = repos.filter(isGameDev);
+    const other = repos.filter(r => !isGameDev(r));
 
     loading.remove();
+
     if (!repos.length) {
-      grid.innerHTML = '<p class="loading">No other public repos to show yet.</p>';
+      errBox.textContent = 'No public repositories to show yet.';
+      errBox.classList.remove('hidden');
       return;
     }
-    repos.forEach(r => grid.appendChild(repoEl(r)));
+
+    fillGroup('gameGroup',  'gameRepos',  games);
+    fillGroup('otherGroup', 'otherRepos', other);
   } catch (err) {
     console.error(err);
     loading.remove();
@@ -95,7 +124,7 @@ loadRepos();
 /* ===================================================
    subtle reveal on scroll (once per element)
    =================================================== */
-const toReveal = document.querySelectorAll('.block-head, .about, .featured, .skill-col, .contact-lede, .contact-list');
+const toReveal = document.querySelectorAll('.block-head, .about, .repo-group, .skill-col, .contact-lede, .contact-list');
 toReveal.forEach(el => el.classList.add('reveal'));
 
 const io = new IntersectionObserver((entries, obs) => {
